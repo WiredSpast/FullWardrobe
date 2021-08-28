@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="index.css">
+        <title>Full Wardrobe</title>
+    </head>
+    <body>
+        <div id="topBar">
+            <div class="title">Full Wardrobe</div>
+            <div class="close" onclick="hide()">
+                <div class="closehover" onclick="hide()"></div>
+            </div>
+        </div>
+        <main>
+            <img id="outfit" src="https://www.habbo.com/habbo-imaging/avatarimage?direction=4&figure=" width="64px" height="110px" draggable="false">
+            <label>Note:<br>
+                You might have to switch<br>
+                gender to see the change</label>
+            <div class="buttons">
+                <button onclick="copyFigure()">Copy figure</button>
+                <button id="toggle" onclick="toggle()">Toggle on</button>
+            </div>
+        </main>
+        <script>
+            const { ipcRenderer, clipboard } = require('electron');
+            let currentOutfit = "";
+
+            function hide() {
+                ipcRenderer.send('hide');
+            }
+
+            function toggle() {
+                ipcRenderer.send('toggle');
+            }
+
+            function copyFigure() {
+                clipboard.writeText(currentOutfit);
+            }
+
+            ipcRenderer.on('currentOutfit', (event, args) => {
+                document.querySelector('#outfit').src = `https://www.habbo.com/habbo-imaging/avatarimage?direction=4&figure=${args}`;
+                currentOutfit = args;
+            });
+
+            ipcRenderer.on('buttonState', (event, args) => {
+                console.log(args);
+                document.querySelector('#toggle').innerHTML = `Toggle ${args ? 'off' : 'on'}`;
+            });
+        </script>
+    </body>
+</html>

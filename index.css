@@ -1,0 +1,110 @@
+@font-face {
+    font-family: Volter;
+    src: url('resources/ui/Volter.ttf');
+}
+
+@font-face {
+    font-family: VolterBold;
+    src: url('resources/ui/VolterBold.ttf')
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Volter, sans-serif;
+    color: white;
+    -webkit-font-smoothing: subpixel-antialiased;
+    user-select: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    overflow: hidden;
+    border: 8px solid transparent;
+    border-image: url('resources/ui/wiredborder.png') 8 fill round;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px rgb(50, 50, 50);
+}
+
+button {
+    font-size: 9px;
+    background: none;
+    border: 3px solid transparent;
+    border-image: url('resources/ui/wiredbutton.png') 3 fill round;
+    padding: 2px 0;
+    margin: 2.5px;
+    width: 103px;
+}
+
+button:hover {
+    border-image: url('resources/ui/wiredbuttonhover.png') 3 fill round;
+}
+
+button:active {
+    border-image: url('resources/ui/wiredbuttonpressed.png') 3 fill round;
+}
+
+.buttons {
+    padding-top: 2px;
+    border-top: #242424 solid 1px;
+}
+
+#topBar {
+    height: 15px;
+    width: 100%;
+    position: relative;
+    background-image: url("resources/ui/top.png");
+    background-repeat: repeat;
+    -webkit-app-region: drag;
+}
+
+#topBar .title {
+    font-family: VolterBold, sans-serif;
+    font-size: 9px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 2px;
+}
+
+#topBar .close {
+    width: 13px;
+    height: 13px;
+    background-image: url("resources/ui/close.png");
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    -webkit-app-region: no-drag;
+}
+
+#topBar .close:hover .closehover {
+    width: 13px;
+    height: 13px;
+    background-image: url("resources/ui/closehover.png");
+    -webkit-app-region: no-drag;
+}
+
+main {
+    height: calc(100% - 13px);
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+label {
+    font-size: 9px;
+    text-align: center;
+}
