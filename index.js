@@ -10,7 +10,7 @@ process.on('uncaughtException', function (error) {
 const extensionInfo = {
     name: 'Full Wardrobe',
     description: 'Have optional access to all clothing in the wardrobe',
-    version: '0.1',
+    version: '0.2',
     author: 'WiredSpast'
 }
 
