@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron index.js"
+    "start": "electron index.js",
+    "test": "electron index.js -p 9092",
+    "trace-warnings": "electron --trace-warnings index.js -p 9092"
   },
   "keywords": [],
   "author": "",

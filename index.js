@@ -13,10 +13,14 @@ const extensionInfo = {
     version: '0.1',
     author: 'WiredSpast'
 }
-console.log('args', process.argv);
+
 const ext = new Extension(extensionInfo);
 
 ext.run();
+
+ext.on('socketdisconnect', () => {
+    process.exit(0);
+});
 
 let win;
 
@@ -103,7 +107,7 @@ function fetchFigureSetIds(hotel) {
     fetch(`https://${hotel}/gamedata/furnidata_json/1`)
         .then(res => res.json())
         .then(furniData => {
-            let clothing = furniData.roomitemtypes.furnitype.filter(i => i.specialtype === 23);
+            let clothing = furniData.roomitemtypes.furnitype.filter(i => i.specialtype === 23 && i.customparams != null);
 
             let ids = '';
             let names = '';
