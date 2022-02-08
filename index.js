@@ -137,9 +137,10 @@ function onFigureSetIds(hMessage) {
 
 function onUpdateFigureData(hMessage) {
     let packet = hMessage.getPacket();
-    packet.readString();
+    let gender = packet.readString();
+    let figure = packet.readString();
     if(win) {
-        win.webContents.send('currentOutfit', packet.readString());
+        win.webContents.send('currentOutfit', figure);
     }
 }
 
