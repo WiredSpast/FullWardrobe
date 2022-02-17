@@ -10,7 +10,7 @@ process.on('uncaughtException', function (error) {
 const extensionInfo = {
     name: 'Full Wardrobe',
     description: 'Have optional access to all clothing in the wardrobe',
-    version: '0.2',
+    version: '0.4',
     author: 'WiredSpast'
 }
 
@@ -125,7 +125,6 @@ function fetchFigureSetIds(hotel) {
             }
 
             fullFigureSetIdsPacket = new HPacket(`{in:FigureSetIds}{i:${count}}${ids}{i:${count}}${names}`);
-            console.log('setup complete');
         });
 }
 
