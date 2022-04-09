@@ -6,21 +6,21 @@ process.on('uncaughtException', function (error) {
     process.exit(0);
 });
 
-let win;
-
-let realFigureSetIdsPacket;
-let fullFigureSetIdsPacket;
-let enabled = false;
-
-const extensionInfo = {
-    name: 'Full Wardrobe',
-    description: 'Have optional access to all clothing in the wardrobe',
-    version: '0.4',
-    author: 'WiredSpast'
-}
-
 app.whenReady().then(async () => {
     const { Extension, HDirection, HPacket} = await import('gnode-api');
+
+    let win;
+
+    let realFigureSetIdsPacket;
+    let fullFigureSetIdsPacket;
+    let enabled = false;
+
+    const extensionInfo = {
+        name: 'Full Wardrobe',
+        description: 'Have optional access to all clothing in the wardrobe',
+        version: '0.4',
+        author: 'WiredSpast'
+    }
 
     const ext = new Extension(extensionInfo);
 
@@ -123,41 +123,41 @@ app.whenReady().then(async () => {
         e.preventDefault();
         win.hide();
     });
-});
 
-ipcMain.on('hide', (e, args) => {
-    win.hide();
-});
+    ipcMain.on('hide', (e, args) => {
+        win.hide();
+    });
 
-function onFigureSetIds(hMessage) {
-    realFigureSetIdsPacket = hMessage.getPacket();
-    enabled = false;
-    win.webContents.send('buttonState', enabled);
-}
-
-function onUpdateFigureData(hMessage) {
-    let packet = hMessage.getPacket();
-    let gender = packet.readString();
-    let figure = packet.readString();
-    if(win) {
-        win.webContents.send('currentOutfit', figure);
-    }
-}
-
-ipcMain.on('toggle', (e, arg) => {
-    if(fullFigureSetIdsPacket) {
-        enabled = !enabled;
-
-        if (enabled) {
-            ext.sendToClient(fullFigureSetIdsPacket);
-        } else {
-            if(realFigureSetIdsPacket) {
-                ext.sendToClient(realFigureSetIdsPacket);
-            } else {
-                enabled = true;
-            }
-        }
-
+    function onFigureSetIds(hMessage) {
+        realFigureSetIdsPacket = hMessage.getPacket();
+        enabled = false;
         win.webContents.send('buttonState', enabled);
     }
+
+    function onUpdateFigureData(hMessage) {
+        let packet = hMessage.getPacket();
+        let gender = packet.readString();
+        let figure = packet.readString();
+        if(win) {
+            win.webContents.send('currentOutfit', figure);
+        }
+    }
+
+    ipcMain.on('toggle', (e, arg) => {
+        if(fullFigureSetIdsPacket) {
+            enabled = !enabled;
+
+            if (enabled) {
+                ext.sendToClient(fullFigureSetIdsPacket);
+            } else {
+                if(realFigureSetIdsPacket) {
+                    ext.sendToClient(realFigureSetIdsPacket);
+                } else {
+                    enabled = true;
+                }
+            }
+
+            win.webContents.send('buttonState', enabled);
+        }
+    });
 });
